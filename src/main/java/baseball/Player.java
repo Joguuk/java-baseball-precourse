@@ -31,7 +31,9 @@ public class Player {
             }
 
             if (computer.checkResult(input)) {
-                return;
+                if (isGameTerminate()) {
+                    return;
+                }
             }
         }
     }
@@ -70,6 +72,27 @@ public class Player {
         for (int i = 0; i < input.length(); i++) {
             if (input.indexOf(input.charAt(i)) != i) {
                 throw new NoSuchElementException();
+            }
+        }
+    }
+
+    /**
+     * Player가 게임을 계속할 건지 판단한다.
+     *
+     * @return 게임을 종료할지에 대한 반환값(종료 요청 시 true)
+     */
+    public Boolean isGameTerminate() {
+        while (true) {
+            consoleView.printEndGuideMessage();
+            input = Console.readLine();
+
+            if (input.equals(GAME_TERMINATION_CODE)) {
+                return true;
+            }
+
+            if (input.equals(GAME_RESTART_CODE)) {
+                computer.initGame();
+                return false;
             }
         }
     }

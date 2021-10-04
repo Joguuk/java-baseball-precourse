@@ -47,4 +47,11 @@ public class ConsoleView {
     public void printSuccessMessage() {
         System.out.printf(GAME_SUCCESS_GUIDE_MESSAGE.getErrorMessage(), NUMBER_OF_BALL);
     }
+
+    /**
+     * 게임 종료 안내 메세지를 콘솔 출력한다.
+     */
+    public void printEndGuideMessage() {
+        System.out.printf(GAME_END_GUIDE_MESSAGE.getErrorMessage(), GAME_RESTART_CODE, GAME_TERMINATION_CODE);
+    }
 }
