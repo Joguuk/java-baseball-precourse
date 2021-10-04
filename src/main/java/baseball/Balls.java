@@ -24,12 +24,10 @@ public class Balls {
      * 정해진 자리수만큼 서로 다른 숫자를 생성한다.
      */
     public void createBall() {
-        if (ballList.size() == NUMBER_OF_BALL) {
-            clearBall();
-        }
+        clearBall();
 
         for (int i = 0; i < NUMBER_OF_BALL; i++) {
-            ballList.add(new Ball(generateUniqueNumber()));
+            ballList.add(new Ball(getUniqueNumber()));
         }
     }
 
@@ -38,38 +36,32 @@ public class Balls {
      *
      * @return 중복되지 않은 숫자
      */
-    private Integer generateUniqueNumber() {
-        while(true) {
-            int randomNumber = Randoms.pickNumberInRange(0, 9);
+    private Integer getUniqueNumber() {
+        int randomNumber = Randoms.pickNumberInRange(0, 9);
 
-            if (isDuplicateNumber(randomNumber)) {
-                continue;
-            }
+        if (isDuplicateNumber(randomNumber))
+            return getUniqueNumber();
 
-            return randomNumber;
-        }
+        return randomNumber;
     }
 
     /**
-     * Player가 입력한 숫자의 결과를 판단하여 승패를 반환한다.
+     * 파라미터로 전달받은 숫자의 중복 여부를 반환한다.
      *
-     * @param num Player의 입력값
-     * @return 게임의 승패 결과값(숫자를 모두 맞출 경우 true)
+     * @param num 중복 여부를 판단할 숫자
+     * @return 파라미터 숫자의 중복 여부
      */
     public Boolean isDuplicateNumber(Integer num) {
-        for (Ball ball : ballList) {
-            if (ball.getNum().equals(num)) {
-                return true;
-            }
-        }
-        return false;
+        return getAllBallNum().contains(Integer.toString(num));
     }
 
     /**
      * 새롭게 게임을 시작하기 위해 숫자를 초기화한다.
      */
     public void clearBall() {
-        ballList.clear();
+        if (ballList.size() == NUMBER_OF_BALL) {
+            ballList.clear();
+        }
     }
 
     /**
@@ -78,17 +70,12 @@ public class Balls {
     public void initCnt() {
         strikeCnt = 0;
         ballCnt = 0;
-        for (Ball ball : ballList) {
-            ball.setIsStrike(false);
-        }
+        ballList.forEach(ball -> ball.setIsStrike(false));
     }
 
     public void printBallNum() {
         System.out.println("===ball===");
-        for (Ball ball : ballList) {
-            System.out.print(ball.getNum());
-        }
-        System.out.println();
+        System.out.println(getAllBallNum());
         System.out.println("===ball===");
     }
 
@@ -112,12 +99,36 @@ public class Balls {
      * @param inputNum Player가 입력한 숫자
      */
     public void checkBall(Integer inputNum) {
-        for (Ball ball : ballList) {
-            if (!ball.getIsStrike() && ball.getNum().equals(inputNum)) {
-                ballCnt++;
-                return;
-            }
+        if (getNotStrikeBallNum().contains(Integer.toString(inputNum))) {
+            ballCnt++;
+            return;
         }
+    }
+
+    /**
+     * ballList에 등록된 전체 번호를 반환한다.
+     *
+     * @return 전체 번호
+     */
+    public String getAllBallNum() {
+        String allBallNum = "";
+        for (Ball ball : ballList) {
+            allBallNum += ball.getNum();
+        }
+        return allBallNum;
+    }
+
+    /**
+     * ballList에 등록된 전체 번호 중 스트라이크가 아닌 번호를 반환한다.
+     *
+     * @return 전체 번호
+     */
+    public String getNotStrikeBallNum() {
+        String notStrikeBallNum = "";
+        for (Ball ball : ballList) {
+            notStrikeBallNum += ball.getIsStrike().equals(false) ? ball.getNum() : "";
+        }
+        return notStrikeBallNum;
     }
 
     /**
@@ -154,6 +165,5 @@ public class Balls {
         public void setIsStrike(Boolean isStrike) {
             this.isStrike = isStrike;
         }
-
     }
 }
