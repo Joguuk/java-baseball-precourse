@@ -13,9 +13,11 @@ import static baseball.BaseballConstants.*;
  * @since 1.0
  */
 public class Player {
+    private Computer computer;
     private String input;
 
     public Player() {
+        computer = new Computer();
     }
 
     /**
@@ -26,6 +28,10 @@ public class Player {
         while (true) {
             if (!getPlayerInput()) {
                 continue;
+            }
+
+            if (computer.checkResult(input)) {
+                return;
             }
         }
     }
