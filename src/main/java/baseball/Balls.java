@@ -32,6 +32,15 @@ public class Balls {
     }
 
     /**
+     * 파라미타로 전달받은 입력값을 숫자로 생성한다.
+     */
+    public void createBall(String input) {
+        for (int j = 0; j < input.length(); j++) {
+            ballList.add(new Ball(Character.getNumericValue(input.charAt(j))));
+        }
+    }
+    
+    /**
      * 게임에 사용될 숫자 중 중복되지 않은 숫자를 반환한다.
      *
      * @return 중복되지 않은 숫자
@@ -71,12 +80,6 @@ public class Balls {
         strikeCnt = 0;
         ballCnt = 0;
         ballList.forEach(ball -> ball.setIsStrike(false));
-    }
-
-    public void printBallNum() {
-        System.out.println("===ball===");
-        System.out.println(getAllBallNum());
-        System.out.println("===ball===");
     }
 
     /**
