@@ -21,7 +21,6 @@ public class Computer {
      */
     public void initGame() {
         balls.createBall();
-        balls.printBallNum();
     }
 
     /**
