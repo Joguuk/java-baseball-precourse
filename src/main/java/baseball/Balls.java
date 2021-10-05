@@ -145,6 +145,9 @@ public class Balls {
         return ballCnt;
     }
 
+    /**
+     * 각 자리수에 해당하는 숫자를 의미하는 Ball Class
+     */
     class Ball {
         private Integer num;
         private Boolean isStrike;

@@ -11,34 +11,23 @@ public class BaseballConstants {
     public static final String GAME_RESTART_CODE = "1";
     public static final String GAME_TERMINATION_CODE = "2";
 
-    public enum ErrorMessage {
-        INPUT_GUIDE_MESSAGE(0, "숫자를 입력해주세요 : "),
-        INPUT_ERROR_MESSAGE(1, "[ERROR]%d자리의 서로 다른 숫자를 입력해야 합니다.\n"),
-        HINT_NOT_MATCH_GUIDE_MESSAGE(2, "낫싱"),
-        HINT_STRIKE_GUIDE_MESSAGE(3, "스트라이크"),
-        HINT_BALL_GUIDE_MESSAGE(4, "볼"),
-        GAME_SUCCESS_GUIDE_MESSAGE(5, "%d개의 숫자를 모두 맞히셨습니다! 게임 끝\n"),
-        GAME_END_GUIDE_MESSAGE(6, "게임을 새로 시작하려면 %s, 종료하려면 %s를 입력하세요.");
+    public enum Message {
+        INPUT_GUIDE_MESSAGE("숫자를 입력해주세요 : "),
+        INPUT_ERROR_MESSAGE("[ERROR]%d자리의 서로 다른 숫자를 입력해야 합니다.\n"),
+        HINT_NOT_MATCH_GUIDE_MESSAGE("낫싱"),
+        HINT_STRIKE_GUIDE_MESSAGE("스트라이크"),
+        HINT_BALL_GUIDE_MESSAGE("볼"),
+        GAME_SUCCESS_GUIDE_MESSAGE("%d개의 숫자를 모두 맞히셨습니다! 게임 끝\n"),
+        GAME_END_GUIDE_MESSAGE("게임을 새로 시작하려면 %s, 종료하려면 %s를 입력하세요.");
 
-        private final int errorCode;
-        private final String errorMessage;
+        private final String message;
 
-        private ErrorMessage(int code, String description) {
-            this.errorCode = code;
-            this.errorMessage = description;
+        private Message(String description) {
+            this.message = description;
         }
 
-        public String getErrorMessage() {
-            return errorMessage;
-        }
-
-        public int getErrorCode() {
-            return errorCode;
-        }
-
-        @Override
-        public String toString() {
-            return errorCode + ": " + errorMessage;
+        public String getMessage() {
+            return message;
         }
     }
 }
